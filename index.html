@@ -1,0 +1,161 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="./mustard-ui.min.css">
+	</head>
+	<body>
+	<div class=container-larg>
+		<div class="row">
+			<div class="col col-sm-4 ">
+				
+			</div>
+			<div class="col col-sm-4">
+				Name:<input type=text name=uname id=uname>
+			</div>
+			<div class="col col-sm-4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col col-sm-4">
+				
+			</div>
+			<div class="col col-sm-4">
+				Family:<input type=text name=ufamily id=ufamily>
+			</div>
+			<div class="col col-sm-4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col col-sm-4">
+				
+			</div>
+			<div class="col col-sm-4">
+				Telephone:<input type=text name=utel id=utel>
+			</div>
+			<div class="col col-sm-4">
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col col-sm-4">
+				
+			</div>
+			<div class="col col-sm-4">
+				<div class=row>
+					<div class="col col-sm-3">
+						<input class="button-primary button-success float-left" type=button name=add value=add onclick=add()>
+					</div>
+					<div class="col col-sm-3">
+						<input class="button-primary button-success" type=button name=remove value=remove onclick=remove()>
+					</div>
+					<div class="col col-sm-3">
+						<input class="button-primary button-success" type=button name=search value=search onclick=search()>
+					</div>
+					<div class="col col-sm-3">
+						<input class="button-primary button-success float-right" type=button name=update value=update onclick=update()>
+					</div>
+				</div>
+			</div>
+			<div class="col col-sm-4">
+				
+			</div>
+			
+		</div>
+		<div class=row>
+			<div class="col col-sm-3">
+			</div>
+			<div class="col col-sm-6">
+				<table>
+					<thead>
+						<tr>
+							<th>
+								Name
+							</th>
+							<th>
+								Family
+							</th>
+							<th>
+								Telephone
+							</th>
+						</tr>
+					</thead>
+					<tbody id=tbody>
+						
+					<tbody>
+				</table>
+			</div>
+			<div class="col col-sm-3">
+			</div>
+		</div>
+	</div>	
+		
+		
+		
+		
+		<script>
+			var found;
+			function add(){
+				var tbody=document.getElementById("tbody");
+				
+				var tr = document.createElement("tr");
+				
+				var td1 = document.createElement("td");
+				var td2 = document.createElement("td");
+				var td3 = document.createElement("td");
+				
+				var uname=document.createTextNode(document.getElementById("uname").value);
+				var ufamily=document.createTextNode(document.getElementById("ufamily").value);
+				var utel=document.createTextNode(document.getElementById("utel").value);
+				
+				td1.appendChild(uname);
+				td2.appendChild(ufamily);
+				td3.appendChild(utel);
+				
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+				tr.appendChild(td3);
+				tr.onclick=function(e){
+					document.getElementById("uname").value=this.firstChild.innerHTML
+					search();
+				}
+				tbody.appendChild(tr);
+			
+			}
+			function search(){
+				var aTags = document.getElementsByTagName("td");
+				var searchText = document.getElementById("uname").value;
+				
+
+				for (var i = 0; i < aTags.length; i++) {
+				  if (aTags[i].textContent == searchText && aTags[i].cellIndex == 0 ) {
+					found = aTags[i];
+					break;
+				  }
+				}
+				if(found){
+					uname=found.textContent;
+					ufamily=found.nextSibling.textContent;
+					utel=found.nextSibling.nextSibling.textContent;
+					document.getElementById("uname").value=uname;
+					document.getElementById("ufamily").value=ufamily;
+					document.getElementById("utel").value=utel;
+					
+				}
+			}
+			function remove(){
+				found.parentNode.remove();
+			}
+			function update(){
+				var uname=document.getElementById("uname").value;
+				var ufamily=document.getElementById("ufamily").value;
+				var utel=document.getElementById("utel").value;
+				
+				found.textContent=uname;
+				found.nextSibling.textContent=ufamily;
+				found.nextSibling.nextSibling.textContent=utel;
+			}
+		</script>
+	</body>
+
+</html>
